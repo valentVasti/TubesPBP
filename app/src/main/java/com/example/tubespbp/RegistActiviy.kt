@@ -110,7 +110,7 @@ class RegistActiviy : AppCompatActivity() {
                 btnRegis.setOnClickListener {
                     CoroutineScope(Dispatchers.IO).launch {
                         db.userDao().addUser(
-                            User(0,username, password,email,birthDate,phone)
+                            User(0,username,password,email,birthDate,phone)
                         )
                         finish()
                     }

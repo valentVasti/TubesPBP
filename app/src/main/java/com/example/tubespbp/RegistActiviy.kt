@@ -29,7 +29,8 @@ class RegistActiviy : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_regist_activiy
-        val binding: ActivityRegistActiviyBinding = ActivityRegistActiviyBinding.inflate(layoutInflater)
+        val binding: ActivityRegistActiviyBinding =
+            ActivityRegistActiviyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val inputUsername = binding.inputLayoutUsername
@@ -43,8 +44,10 @@ class RegistActiviy : AppCompatActivity() {
         val datePicker = binding.inputBirthDate
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
-            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
-                                   dayOfMonth: Int) {
+            override fun onDateSet(
+                view: DatePicker, year: Int, monthOfYear: Int,
+                dayOfMonth: Int
+            ) {
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -54,22 +57,24 @@ class RegistActiviy : AppCompatActivity() {
 
         datePicker.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
-                DatePickerDialog(this@RegistActiviy,
+                DatePickerDialog(
+                    this@RegistActiviy,
                     dateSetListener,
                     // set DatePickerDialog to point to today's date when it loads up
                     cal.get(Calendar.YEAR),
                     cal.get(Calendar.MONTH),
-                    cal.get(Calendar.DAY_OF_MONTH)).show()
+                    cal.get(Calendar.DAY_OF_MONTH)
+                ).show()
             }
 
         })
 
-        btnBack.setOnClickListener{
+        btnBack.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
-        btnRegis.setOnClickListener(View.OnClickListener{
+        btnRegis.setOnClickListener(View.OnClickListener {
             var checkRegist = false
             val username: String = inputUsername.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
@@ -79,46 +84,38 @@ class RegistActiviy : AppCompatActivity() {
 
             val loginData = Bundle()
 
-            if(username.isEmpty()){
+            if (username.isEmpty()) {
                 inputUsername.setError("Username tidak boleh kosong")
             }
 
-            if(password.isEmpty()){
+            if (password.isEmpty()) {
                 inputPassword.setError("Password tidak boleh kosong")
             }
 
-            if(email.isEmpty()){
+            if (email.isEmpty()) {
                 inputEmail.setError("Email tidak boleh kosong")
             }
 
-            if(birthDate.isEmpty()){
+            if (birthDate.isEmpty()) {
                 inputBirthDate.setError("Tanggal lahir tidak boleh kosong")
             }
 
-            if(phone.isEmpty()){
+            if (phone.isEmpty()) {
                 inputPhone.setError("Nomor Telepon tidak boleh kosong")
             }
 
-            if(
+            if (
                 !username.isEmpty() &&
                 !password.isEmpty() &&
                 !email.isEmpty() &&
                 !birthDate.isEmpty() &&
                 !phone.isEmpty()
-                ){
+            ) {
                 checkRegist = true
-                btnRegis.setOnClickListener {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        db.userDao().addUser(
-                            User(0,username,password,email,birthDate,phone)
-                        )
-                        finish()
-                    }
-                }
             }
 
-            if(!checkRegist) return@OnClickListener
-
+            if (!checkRegist) return@OnClickListener
+            setupListener()
             loginData.putString("username", username)
             loginData.putString("password", password)
 
@@ -126,20 +123,38 @@ class RegistActiviy : AppCompatActivity() {
             MaterialAlertDialogBuilder(this@RegistActiviy)
                 .setTitle("Akun berhasil dibuat!")
                 .setMessage("Note: Silahkan lanjutkan ke login")
-                .setPositiveButton("Login", object : DialogInterface.OnClickListener{
-                    override fun onClick(dialogInterface: DialogInterface, i: Int){
+                .setPositiveButton("Login", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialogInterface: DialogInterface, i: Int) {
                         moveLogin.putExtras(loginData)
                         startActivity(moveLogin)
                     }
                 })
                 .show()
-         })
+        })
     }
 
+    private fun setupListener() {
+        btnRegist.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                db.userDao().addUser(
+                    User(
+                        0,
+                        inputUsername.getText().toString(),
+                        inputPassword.getText().toString(),
+                        inputEmail.getText().toString(),
+                        inputBirthDate.getText().toString(),
+                        inputPhone.getText().toString()
+                    )
+                )
+                finish()
+            }
+        }
+        }
 
-    private fun updateDateInView(editDate: TextInputEditText) {
-        val myFormat = "MM/dd/yyyy" // mention the format you need
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        editDate.setText(sdf.format(cal.getTime()).toString())
+        private fun updateDateInView(editDate: TextInputEditText) {
+            val myFormat = "MM/dd/yyyy" // mention the format you need
+            val sdf = SimpleDateFormat(myFormat, Locale.US)
+            editDate.setText(sdf.format(cal.getTime()).toString())
+        }
     }
-}
+

@@ -107,11 +107,10 @@ class RegistActiviy : AppCompatActivity() {
                 !phone.isEmpty()
                 ){
                 checkRegist = true
-                btnRegist.setOnClickListener {
+                btnRegis.setOnClickListener {
                     CoroutineScope(Dispatchers.IO).launch {
                         db.userDao().addUser(
-                            User(0,inputUsername.toString(),
-                                inputPassword.toString(),inputEmail.toString(),inputBirthDate.toString(),inputPhone.toString())
+                            User(0,username, password,email,birthDate,phone)
                         )
                         finish()
                     }

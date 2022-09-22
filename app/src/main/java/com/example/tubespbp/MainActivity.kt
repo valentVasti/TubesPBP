@@ -17,9 +17,6 @@ import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var layoutUsername : TextInputLayout
-    private lateinit var layoutPassword : TextInputLayout
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -56,8 +53,8 @@ class MainActivity : AppCompatActivity() {
             var checkLogin = false
             val loginData = intent.extras
 
-            var inputUsername = layoutUsername.getEditText()?.getText().toString()
-            var inputPassword = layoutPassword.getEditText()?.getText().toString()
+            val inputUsername = layoutUsername.getEditText()?.getText().toString()
+            val inputPassword = layoutPassword.getEditText()?.getText().toString()
 
             if(inputUsername.isEmpty())
                 layoutUsername.setError("Username must be filled with text")

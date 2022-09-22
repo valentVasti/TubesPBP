@@ -6,33 +6,29 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.DatePicker
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.tubespbp.databinding.ActivityRegistActiviyBinding
-import com.google.android.material.datepicker.MaterialDatePicker
-//import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RegistActiviy : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRegistActiviyBinding
-
     private var cal = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_regist_activiy)
+        //setContentView(R.layout.activity_regist_activiy)
 
-        var inputUsername = binding.inputLayoutUsername
-        var inputPassword = binding.inputLayoutPassword
-        var inputEmail = binding.inputLayoutEmail
-        var inputBirthDate = binding.inputLayoutTTL
-        var inputPhone = binding.inputLayoutNoTelp
+        val binding: ActivityRegistActiviyBinding = ActivityRegistActiviyBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val inputUsername = binding.inputLayoutUsername
+        val inputPassword = binding.inputLayoutPassword
+        val inputEmail = binding.inputLayoutEmail
+        val inputBirthDate = binding.inputLayoutTTL
+        val inputPhone = binding.inputLayoutNoTelp
 
         val btnBack = binding.backBtn
         val btnRegis = binding.btnRegist
@@ -102,7 +98,7 @@ class RegistActiviy : AppCompatActivity() {
                 !birthDate.isEmpty() &&
                 !phone.isEmpty()
                 ){
-                checkRegist = true;
+                checkRegist = true
             }
 
             if(!checkRegist) return@OnClickListener

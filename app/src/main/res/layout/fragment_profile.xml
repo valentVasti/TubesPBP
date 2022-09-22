@@ -5,11 +5,5 @@
     android:layout_height="match_parent"
     tools:context=".FragmentProfile">
 
-    <TextView
-        style="@style/TextAppearance.MaterialComponents.Headline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textColor="@color/black"
-        android:layout_marginStart="150dp"/>
+
 </FrameLayout>

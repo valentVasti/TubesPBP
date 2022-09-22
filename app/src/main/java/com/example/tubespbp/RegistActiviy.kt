@@ -8,19 +8,27 @@ import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
 import com.example.tubespbp.databinding.ActivityRegistActiviyBinding
+import com.example.tubespbp.room.User
+import com.example.tubespbp.room.UserDB
+import com.example.tubespbp.room.UserDao
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.activity_regist_activiy.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RegistActiviy : AppCompatActivity() {
 
     private var cal = Calendar.getInstance()
+    val db by lazy { UserDB(this) }
+    private var noteId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_regist_activiy)
-
+        //setContentView(R.layout.activity_regist_activiy
         val binding: ActivityRegistActiviyBinding = ActivityRegistActiviyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -99,6 +107,15 @@ class RegistActiviy : AppCompatActivity() {
                 !phone.isEmpty()
                 ){
                 checkRegist = true
+                btnRegist.setOnClickListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        db.userDao().addUser(
+                            User(0,inputUsername.toString(),
+                                inputPassword.toString(),inputEmail.toString(),inputBirthDate.toString(),inputPhone.toString())
+                        )
+                        finish()
+                    }
+                }
             }
 
             if(!checkRegist) return@OnClickListener
@@ -119,6 +136,7 @@ class RegistActiviy : AppCompatActivity() {
                 .show()
          })
     }
+
 
     private fun updateDateInView(editDate: TextInputEditText) {
         val myFormat = "MM/dd/yyyy" // mention the format you need

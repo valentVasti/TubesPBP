@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tubespbp.entity.Bengkel
+import com.example.tubespbp.room.User
 
 class FragmentProfile : Fragment () {
     override fun onCreateView(

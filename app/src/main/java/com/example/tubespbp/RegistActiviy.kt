@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.tubespbp.databinding.ActivityRegistActiviyBinding
 import com.google.android.material.datepicker.MaterialDatePicker
 //import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -19,13 +20,7 @@ import java.util.*
 
 class RegistActiviy : AppCompatActivity() {
 
-    private lateinit var inputUsername: TextInputLayout
-    private lateinit var inputPassword: TextInputLayout
-    private lateinit var inputEmail: TextInputLayout
-    private lateinit var inputBirthDate: TextInputLayout
-    private lateinit var inputPhone: TextInputLayout
-    private lateinit var editDate: TextInputEditText
-    private lateinit var mainLayout: ConstraintLayout
+    private lateinit var binding: ActivityRegistActiviyBinding
 
     private var cal = Calendar.getInstance()
 
@@ -33,15 +28,15 @@ class RegistActiviy : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_regist_activiy)
 
-        inputUsername = findViewById(R.id.inputLayoutUsername)
-        inputPassword = findViewById(R.id.inputLayoutPassword)
-        inputEmail = findViewById(R.id.inputLayoutEmail)
-        inputBirthDate = findViewById(R.id.inputLayoutTTL)
-        inputPhone = findViewById(R.id.inputLayoutNoTelp)
+        var inputUsername = binding.inputLayoutUsername
+        var inputPassword = binding.inputLayoutPassword
+        var inputEmail = binding.inputLayoutEmail
+        var inputBirthDate = binding.inputLayoutTTL
+        var inputPhone = binding.inputLayoutNoTelp
 
-        val btnBack = findViewById<Button>(R.id.backBtn)
-        val btnRegis = findViewById<Button>(R.id.btnRegist)
-        val datePicker = findViewById<TextInputEditText>(R.id.inputBirthDate)
+        val btnBack = binding.backBtn
+        val btnRegis = binding.btnRegist
+        val datePicker = binding.inputBirthDate
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,

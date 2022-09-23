@@ -16,7 +16,6 @@ class QueueRVAdapter(
 ) :
     RecyclerView.Adapter<QueueRVAdapter.ViewHolder>() {
 
-
     private val allQueues = ArrayList<Queue>()
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

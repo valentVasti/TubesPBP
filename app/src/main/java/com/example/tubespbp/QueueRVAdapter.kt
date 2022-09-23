@@ -64,14 +64,15 @@ class QueueRVAdapter(
 
         notifyDataSetChanged()
     }
-}
 
-interface QueueClickDeleteInterface {
 
-    fun onDeleteIconClick(queue: Queue)
-}
+    interface QueueClickDeleteInterface {
 
-interface QueueClickInterface {
+        fun onDeleteIconClick(queue: Queue)
+    }
 
-    fun onQueueClick(queue: Queue)
+    interface QueueClickInterface {
+
+        fun onQueueClick(queue: Queue)
+    }
 }

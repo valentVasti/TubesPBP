@@ -55,6 +55,7 @@ class MainActivity2 : AppCompatActivity(), QueueClickInterface, QueueClickDelete
         }
     }
 
+
     override fun onQueueClick(queue: Queue) {
         val intent = Intent(this@MainActivity2, AddEditQueueActivity::class.java)
         intent.putExtra("queueType", "Edit")

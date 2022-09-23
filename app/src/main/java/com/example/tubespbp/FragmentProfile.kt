@@ -14,18 +14,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FragmentProfile : Fragment () {
-    val db by lazy { UserDB(requireActivity()) }
-    val loginData = intent.extras
-    fun loadData() {
-        CoroutineScope(Dispatchers.IO).launch{
-            val users = db.userDao().getUserByUsername(loginData.getString("username"))
-            tv_username.setText(users.username)
-            tv_email.setText(users.email)
-            tv_birth.setText(users.birth)
-            tv_phone.setText(users.phone)
-
-        }
-    }
 
 
     override fun onCreateView(
@@ -33,7 +21,7 @@ class FragmentProfile : Fragment () {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        loadData()
+
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 }

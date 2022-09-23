@@ -35,6 +35,7 @@ class HomeActivity : AppCompatActivity() {
                     .setPositiveButton("YES",object: DialogInterface.OnClickListener    {
                         override fun onClick(dialogInterface: DialogInterface,i: Int){
                             finishAndRemoveTask()
+                            startActivity(moveLogin)
                         }
                     })
                     .show()

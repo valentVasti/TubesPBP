@@ -3,17 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/activity_add_edit_queue.xml" value="0.259375" />
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/activity_home.xml" value="0.259375" />
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/activity_main.xml" value="0.259375" />
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/activity_main2.xml" value="0.259375" />
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/activity_regist_activiy.xml" value="0.259375" />
+        <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/activity_splash_screen.xml" value="0.12613981762917933" />
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/activity_user_adapter.xml" value="0.259375" />
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/adapter_user.xml" value="0.259375" />
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/fragment_bengkel.xml" value="0.259375" />
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/fragment_profile.xml" value="0.259375" />
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/fragment_search.xml" value="0.259375" />
+        <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/queue_rv_item.xml" value="0.2128205128205128" />
+        <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/rv_item_bengkel.xml" value="0.259375" />
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/tes.xml" value="0.2128205128205128" />
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/testing.xml" value="0.259375" />
+        <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/menu/bottom_nav.xml" value="0.259375" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable-v24/ic_baseline_directions_car_24.xml" value="0.1875" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable-v24/ic_baseline_person_24.xml" value="0.1875" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.188" />

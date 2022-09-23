@@ -46,10 +46,28 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15sp"
             android:fontFamily="sans-serif-light"
+            android:text="Joey Tribbiani"
             android:textColor="@color/white"
             android:textSize="32sp" />
 
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:text="new york, usa"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+
+
     </RelativeLayout>
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -73,6 +91,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Email"
@@ -83,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="email@gmail.com"
+                    android:text="joey@sharenofood.com"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -102,6 +121,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Phone"
@@ -138,6 +158,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/tv_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
@@ -167,6 +188,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/tv_birth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"

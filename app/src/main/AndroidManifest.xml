@@ -34,6 +34,14 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firbase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <receiver android:name=".NotificationReceiver"/>
     </application>
 
 </manifest>

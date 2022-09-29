@@ -1,5 +1,5 @@
-package com.example.tubespbp
 
+package com.example.tubespbp
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,9 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tubespbp.queue.QueueViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-
-
-class MainActivity2 : AppCompatActivity(), QueueClickInterface, QueueClickDeleteInterface {
+class MainActivity2 : AppCompatActivity(), QueueRVAdapter.QueueClickInterface,
+    QueueRVAdapter.QueueClickDeleteInterface {
 
     lateinit var viewModal: QueueViewModel
     lateinit var queuesRV: RecyclerView

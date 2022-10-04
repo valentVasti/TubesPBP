@@ -133,9 +133,8 @@ class RegistActiviy : AppCompatActivity() {
             loginData.putString("username", username)
             loginData.putString("password", password)
 
-            sendNotification(loginData)
 
-            /*
+
             val moveLogin = Intent(this, MainActivity::class.java)
             MaterialAlertDialogBuilder(this@RegistActiviy)
                 .setTitle("Akun berhasil dibuat!")
@@ -148,7 +147,7 @@ class RegistActiviy : AppCompatActivity() {
                 })
                 .show()
 
-             */
+
         })
     }
 

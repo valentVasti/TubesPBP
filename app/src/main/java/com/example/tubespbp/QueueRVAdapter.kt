@@ -64,7 +64,6 @@ class QueueRVAdapter(
 
         notifyDataSetChanged()
     }
-}
 
 
     interface QueueClickDeleteInterface {
@@ -76,3 +75,4 @@ class QueueRVAdapter(
 
         fun onQueueClick(queue: Queue)
     }
+}

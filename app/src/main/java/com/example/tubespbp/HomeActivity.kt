@@ -29,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
             }else if(it.itemId == R.id.profileFragment) {
                 setCurrentFragment(thirdFragment)
             }else {
-                val moveLogin = Intent(this, MainActivity::class.java)
+                val moveLogin = Intent(this, LoginActivity::class.java)
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this@HomeActivity)
                 builder.setMessage("Are you sure want to logout ?")
                     .setPositiveButton("YES",object: DialogInterface.OnClickListener    {

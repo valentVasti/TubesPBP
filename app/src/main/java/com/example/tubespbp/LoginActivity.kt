@@ -9,8 +9,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -18,13 +17,18 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.widget.addTextChangedListener
+import com.example.tubespbp.room.User
+import com.example.tubespbp.room.UserDB
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import org.w3c.dom.Text
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
+    val db by lazy { UserDB(this) }
     private val logChannel = "logChannel"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +38,7 @@ class MainActivity : AppCompatActivity() {
         if (supportActionBar != null) {
             supportActionBar!!.hide()
         }
-
-        val loginData = intent.extras
-        setText(loginData)
-
+        //setText()
         val dontHaveAccount = findViewById<TextView>(R.id.dontHaveAccount)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
 
@@ -53,69 +54,102 @@ class MainActivity : AppCompatActivity() {
         })
 
  */
-
         dontHaveAccount.setOnClickListener {
             val moveRegist = Intent(this, RegistActiviy::class.java)
             startActivity(moveRegist)
         }
 
-        btnLogin.setOnClickListener(View.OnClickListener{
+        btnLogin.setOnClickListener(View.OnClickListener {
             var checkLogin = false
-            val loginData = intent.extras
 
             val inputUsername = layoutUsername.getEditText()?.getText().toString()
             val inputPassword = layoutPassword.getEditText()?.getText().toString()
 
-            if(inputUsername.isEmpty())
+            if (inputUsername.isEmpty())
                 layoutUsername.setError("Username must be filled with text")
 
-            if(inputPassword.isEmpty())
+            if (inputPassword.isEmpty())
                 layoutPassword.setError("Password must be filled with text")
 
-            if (loginData != null) {
-                if(
-                    inputUsername == loginData.getString("username")
-                    && inputPassword == loginData.getString("password")
-                ){checkLogin = true}
-                else if(
-                    inputUsername != loginData.getString("username")
-                    && inputPassword == loginData.getString("password")
-                ){layoutUsername.setError("Username salah!")}
-                else if(
-                    inputUsername == loginData.getString("username")
-                    && inputPassword != loginData.getString("password")
-                ){layoutPassword.setError("Password salah!")}
-            }else if(!inputUsername.isEmpty() && !inputPassword.isEmpty()){
-                val moveRegist = Intent(this, RegistActiviy::class.java)
-                MaterialAlertDialogBuilder(this@MainActivity)
-                    .setTitle("Login Gagal")
-                    .setMessage("Note: Belum ada akun terdaftar")
-                    .setPositiveButton("Buat Akun", object : DialogInterface.OnClickListener{
-                        override fun onClick(dialogInterface: DialogInterface, i: Int){
-                            startActivity(moveRegist)
-                        }
-                    })
-                    .setNegativeButton("Cancel", null)
-                    .show()
+            if(!inputUsername.isEmpty() && !inputPassword.isEmpty()){
+                val user: User = findLoginData(inputUsername)
+
+                Log.d("user",user.toString())
+
+                if(user.id != 99){
+                    if(inputPassword == user.password){
+                        checkLogin = true
+                    }else{
+                        layoutPassword.setError("Password Salah!")
+                    }
+                }else{
+                    layoutUsername.setError("Username tidak ditemukan!")
+                }
+
+//            if (loginData != null) {
+//                if (
+//                    inputUsername == loginData.getString("username")
+//                    && inputPassword == loginData.getString("password")
+//                ) {
+//                    checkLogin = true
+//                } else if (
+//                    inputUsername != loginData.getString("username")
+//                    && inputPassword == loginData.getString("password")
+//                ) {
+//                    layoutUsername.setError("Username salah!")
+//                } else if (
+//                    inputUsername == loginData.getString("username")
+//                    && inputPassword != loginData.getString("password")
+//                ) {
+//                    layoutPassword.setError("Password salah!")
+//                }
+//            } else if (!inputUsername.isEmpty() && !inputPassword.isEmpty()) {
+//                val moveRegist = Intent(this, RegistActiviy::class.java)
+//                MaterialAlertDialogBuilder(this@LoginActivity)
+//                    .setTitle("Login Gagal")
+//                    .setMessage("Note: Belum ada akun terdaftar")
+//                    .setPositiveButton("Buat Akun", object : DialogInterface.OnClickListener {
+//                        override fun onClick(dialogInterface: DialogInterface, i: Int) {
+//                            startActivity(moveRegist)
+//                        }
+//                    })
+//                    .setNegativeButton("Cancel", null)
+//                    .show()
+//            }
+                if (!checkLogin)
+                    return@OnClickListener
+                else {
+                    val moveHome = Intent(this, HomeActivity::class.java)
+                    startActivity(moveHome)
+                }
             }
 
-            if(!checkLogin)
-                return@OnClickListener
-            else{
-                sendNotification()
-                val moveHome = Intent(this, HomeActivity::class.java)
-                startActivity(moveHome)
-            }
         })
     }
 
-    fun setText(loginData: Bundle?){
+    fun setText() {
         val editUsername: TextInputEditText = findViewById(R.id.inputUsername)
+        var user = User(0,"a","a","","","")
 
-        if(loginData!=null) {
-            editUsername.setText(loginData.getString("username"))
-        }
+        CoroutineScope(Dispatchers.IO).launch {
+            user = db.userDao().getUser(0)[0]}
+
+        editUsername.setText(user.username)
     }
+
+    private fun findLoginData(data: String): User {
+        var user = User(0, "a", "a", "", "", "")
+
+        CoroutineScope(Dispatchers.IO).launch {
+            var userList: List<User> = db.userDao().getUserByUsername(data)
+
+            if(!userList.isEmpty()){
+                user = userList.get(0)
+            }
+        }
+        return user
+    }
+
     private fun createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             val name = "Notification Title"
@@ -133,15 +167,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun sendNotification(){
 
-        val intent: Intent = Intent(this, MainActivity::class.java).apply {
+        val intent: Intent = Intent(this, LoginActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
         val bigPictureBitmap = ContextCompat.getDrawable(this, R.drawable.big_picture)?.toBitmap()
         val bigPictureStyle = NotificationCompat.BigPictureStyle().bigPicture(bigPictureBitmap)
 
-        //val broadcastIntent: Intent = Intent(this, NotificationReceiver::class.java)
-        //broadcastIntent.putExtra("toastMessage", binding?.etMessage?.text.toString())
         val builder = NotificationCompat.Builder(this, logChannel)
             .setSmallIcon(R.drawable.ic_baseline_check_circle_24)
             .setContentTitle("Login Success!")

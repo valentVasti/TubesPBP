@@ -20,11 +20,12 @@ abstract class UserDB: RoomDatabase() {
                 instance = it
             }
         }
+
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
                 UserDB::class.java,
-                "user12345.db"
+                "user.db"
             ).build()
     }
 }

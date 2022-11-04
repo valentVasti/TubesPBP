@@ -9,7 +9,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,7 +17,6 @@ import android.widget.DatePicker
 import com.example.tubespbp.databinding.ActivityRegistActiviyBinding
 import com.example.tubespbp.room.User
 import com.example.tubespbp.room.UserDB
-import com.example.tubespbp.room.UserDao
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_regist_activiy.*
@@ -26,7 +24,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import android.app.Notification.BigPictureStyle
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import java.util.*
@@ -41,8 +38,7 @@ class RegistActiviy : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_regist_activiy
-        val binding: ActivityRegistActiviyBinding =
-            ActivityRegistActiviyBinding.inflate(layoutInflater)
+        val binding: ActivityRegistActiviyBinding = ActivityRegistActiviyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         createNotificationChannel()
@@ -84,7 +80,7 @@ class RegistActiviy : AppCompatActivity() {
         })
 
         btnBack.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
@@ -129,25 +125,27 @@ class RegistActiviy : AppCompatActivity() {
             }
 
             if (!checkRegist) return@OnClickListener
-            setupListener()
-            loginData.putString("username", username)
-            loginData.putString("password", password)
+            //setupListener()
 
+            CoroutineScope(Dispatchers.IO).launch {
+                db.userDao().addUser(
+                    User(
+                        0,
+                        username,
+                        password,
+                        email,
+                        birthDate,
+                        phone
+                    )
+                )
+                finish()
+            }
+//            loginData.putString("username", username)
+//            loginData.putString("password", password)
 
-
-            val moveLogin = Intent(this, MainActivity::class.java)
-            MaterialAlertDialogBuilder(this@RegistActiviy)
-                .setTitle("Akun berhasil dibuat!")
-                .setMessage("Note: Silahkan lanjutkan ke login")
-                .setPositiveButton("Login", object : DialogInterface.OnClickListener {
-                    override fun onClick(dialogInterface: DialogInterface, i: Int) {
-                        moveLogin.putExtras(loginData)
-                        startActivity(moveLogin)
-                    }
-                })
-                .show()
-
-
+            val moveLogin = Intent(this, LoginActivity::class.java)
+            sendNotification()
+            startActivity(moveLogin)
         })
     }
 
@@ -167,7 +165,7 @@ class RegistActiviy : AppCompatActivity() {
                 finish()
             }
         }
-        }
+    }
 
     private fun updateDateInView(editDate: TextInputEditText) {
         val myFormat = "MM/dd/yyyy" // mention the format you need
@@ -190,18 +188,16 @@ class RegistActiviy : AppCompatActivity() {
         }
     }
 
-        private fun sendNotification(loginData: Bundle){
+    private fun sendNotification(){
 
-        val intent: Intent = Intent(this, MainActivity::class.java).apply {
+        val intent: Intent = Intent(this, LoginActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        intent.putExtras(loginData)
+
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
         val bigPictureBitmap = ContextCompat.getDrawable(this, R.drawable.big_picture)?.toBitmap()
         val bigPictureStyle = NotificationCompat.BigPictureStyle().bigPicture(bigPictureBitmap)
 
-        //val broadcastIntent: Intent = Intent(this, NotificationReceiver::class.java)
-        //broadcastIntent.putExtra("toastMessage", binding?.etMessage?.text.toString())
         val builder = NotificationCompat.Builder(this, regChannel)
             .setSmallIcon(R.drawable.ic_baseline_check_circle_24)
             .setContentTitle("Register Success!")
@@ -209,7 +205,7 @@ class RegistActiviy : AppCompatActivity() {
             .setStyle(bigPictureStyle)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setContentIntent(pendingIntent)
-            .addAction(R.mipmap.ic_launcher, "Login", pendingIntent)
+//            .addAction(R.mipmap.ic_launcher, "Login", pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         with(NotificationManagerCompat.from(this)){

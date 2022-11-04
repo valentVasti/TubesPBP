@@ -23,7 +23,7 @@ class SplashScreenActivity : AppCompatActivity() {
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+            startActivity(Intent(this@SplashScreenActivity, LoginActivity::class.java))
             finish()
         }, 2000)
 
@@ -32,7 +32,7 @@ class SplashScreenActivity : AppCompatActivity() {
             editSharedP("true")
 
             Handler(Looper.getMainLooper()).postDelayed({
-                startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+                startActivity(Intent(this@SplashScreenActivity, LoginActivity::class.java))
                 finish()
             }, 2000)
         }
@@ -40,7 +40,7 @@ class SplashScreenActivity : AppCompatActivity() {
         if(sharedPreferences!!.getString("check","") == "true"){
             editSharedP("false")
         }else{
-                startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+                startActivity(Intent(this@SplashScreenActivity, LoginActivity::class.java))
                 finish()
         }
 

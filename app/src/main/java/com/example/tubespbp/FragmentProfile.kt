@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 
 class FragmentProfile : Fragment () {
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

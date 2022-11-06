@@ -14,17 +14,23 @@
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable-v24/ic_baseline_directions_car_24.xml" value="0.1875" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable-v24/ic_baseline_person_24.xml" value="0.1875" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.188" />
+        <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable/bg_circle.xml" value="0.1675" />
+        <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable/bg_rounded_rect.xml" value="0.1675" />
+        <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable/bg_triangle.xml" value="0.1675" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable/ic_lock_24.xml" value="0.1875" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable/ic_user_24.xml" value="0.1875" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/activity_add_edit_queue.xml" value="0.22" />
+        <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/activity_camera.xml" value="0.11458333333333333" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/activity_home.xml" value="0.22" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/activity_map.xml" value="0.1" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/activity_regist.xml" value="0.25" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/activity_regist_activiy.xml" value="0.22" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/activity_splash_screen.xml" value="0.19791666666666666" />
-        <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/fragment_bengkel.xml" value="0.33" />
+        <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/fragment_bengkel.xml" value="0.25" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
-        <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/fragment_search.xml" value="0.1" />
+        <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/fragment_search.xml" value="0.18" />
+        <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/layout_tooltip.xml" value="0.1" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/queue_rv_item.xml" value="0.14130434782608695" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/layout/rv_item_bengkel.xml" value="0.14130434782608695" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/menu/bottom_nav.xml" value="0.196875" />

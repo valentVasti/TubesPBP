@@ -25,8 +25,6 @@ class MainActivity2 : AppCompatActivity(), QueueRVAdapter.QueueClickInterface,
         setContentView(R.layout.fragment_search)
 
         queuesRV = findViewById(R.id.queueRV)
-        addFAB = findViewById(R.id.idFAB)
-
 
         queuesRV.layoutManager = LinearLayoutManager(this)
 
@@ -47,11 +45,6 @@ class MainActivity2 : AppCompatActivity(), QueueRVAdapter.QueueClickInterface,
                 queueRVAdapter.updateList(it)
             }
         })
-        addFAB.setOnClickListener {
-            val intent = Intent(this@MainActivity2, AddEditQueueActivity::class.java)
-            startActivity(intent)
-            this.finish()
-        }
     }
 
 

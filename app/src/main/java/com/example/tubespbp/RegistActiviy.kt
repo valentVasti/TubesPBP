@@ -7,15 +7,16 @@ import android.app.NotificationManager
 import android.app.DatePickerDialog
 import android.app.PendingIntent
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.DatePicker
+import android.widget.Toast
 import com.example.tubespbp.databinding.ActivityRegistActiviyBinding
-import com.example.tubespbp.room.User
+//import com.example.tubespbp.room.User
 import com.example.tubespbp.room.UserDB
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -26,18 +27,26 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
+import org.json.JSONObject
+import server.api.UserApi
 import java.util.*
+import server.models.User
+import java.nio.charset.StandardCharsets
 
 class RegistActiviy : AppCompatActivity() {
 
     private var cal = Calendar.getInstance()
-    val db by lazy { UserDB(this) }
-    private var noteId: Int = 0
+    private var queue: RequestQueue? = null
     private val regChannel = "regChannel"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_regist_activiy
         val binding: ActivityRegistActiviyBinding = ActivityRegistActiviyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -86,13 +95,14 @@ class RegistActiviy : AppCompatActivity() {
 
         btnRegis.setOnClickListener(View.OnClickListener {
             var checkRegist = false
+
+            queue = Volley.newRequestQueue(this)
+
             val username: String = inputUsername.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
             val email: String = inputEmail.getEditText()?.getText().toString()
             val birthDate: String = inputBirthDate.getEditText()?.getText().toString()
             val phone: String = inputPhone.getEditText()?.getText().toString()
-
-            val loginData = Bundle()
 
             if (username.isEmpty()) {
                 inputUsername.setError("Username tidak boleh kosong")
@@ -124,47 +134,62 @@ class RegistActiviy : AppCompatActivity() {
                 checkRegist = true
             }
 
-            if (!checkRegist) return@OnClickListener
-            //setupListener()
+            if (!checkRegist){return@OnClickListener}
 
-            CoroutineScope(Dispatchers.IO).launch {
-                db.userDao().addUser(
-                    User(
-                        0,
-                        username,
-                        password,
-                        email,
-                        birthDate,
-                        phone
-                    )
-                )
-                finish()
+            val user = User(username, password, email, birthDate, phone)
+
+            val stringRequest: StringRequest = object : StringRequest(Method.POST,UserApi.ADD_URL,
+                Response.Listener { response ->
+                    val gson = Gson()
+                    val user = gson.fromJson(response, User::class.java)
+
+                    if(user != null){
+                        Toast.makeText(this@RegistActiviy,"Data Berhasil Ditambahkan", Toast.LENGTH_LONG).show()
+                        sendNotification()
+                    }
+
+                    val returnIntent = Intent()
+                    setResult(RESULT_OK, returnIntent)
+                    finish()
+                }, Response.ErrorListener { error->
+                    try{
+                        val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+                        val errors = JSONObject(responseBody)
+                        Toast.makeText(
+                            this@RegistActiviy,
+                            errors.getString("Error: message"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }catch (e: Exception){
+                        Log.d("Error Regist", e.message.toString())
+                        Toast.makeText(this@RegistActiviy,e.message, Toast.LENGTH_LONG).show()
+                    }
+                }
+            ){
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): Map<String, String> {
+                    val headers = HashMap<String,String>()
+                    headers["Accept"] = "application/json"
+                    return headers
+                }
+                @Throws(AuthFailureError::class)
+                override fun getBody(): ByteArray {
+                    val gson = Gson()
+                    val requestBody = gson.toJson(user)
+                    return requestBody.toByteArray(StandardCharsets.UTF_8)
+                }
+
+                override fun getBodyContentType(): String {
+                    return "application/json"
+                }
             }
-//            loginData.putString("username", username)
-//            loginData.putString("password", password)
+
+            queue!!.add(stringRequest)
 
             val moveLogin = Intent(this, LoginActivity::class.java)
             sendNotification()
             startActivity(moveLogin)
         })
-    }
-
-    private fun setupListener() {
-        btnRegist.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                db.userDao().addUser(
-                    User(
-                        0,
-                        inputUsername.getText().toString(),
-                        inputPassword.getText().toString(),
-                        inputEmail.getText().toString(),
-                        inputBirthDate.getText().toString(),
-                        inputPhone.getText().toString()
-                    )
-                )
-                finish()
-            }
-        }
     }
 
     private fun updateDateInView(editDate: TextInputEditText) {
@@ -205,7 +230,6 @@ class RegistActiviy : AppCompatActivity() {
             .setStyle(bigPictureStyle)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setContentIntent(pendingIntent)
-//            .addAction(R.mipmap.ic_launcher, "Login", pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         with(NotificationManagerCompat.from(this)){

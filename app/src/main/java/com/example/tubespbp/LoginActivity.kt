@@ -13,23 +13,31 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.tubespbp.room.User
-import com.example.tubespbp.room.UserDB
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import org.json.JSONObject
+import server.api.UserApi
+import java.nio.charset.StandardCharsets
 
 class LoginActivity : AppCompatActivity() {
-    val db by lazy { UserDB(this) }
+    private var queue: RequestQueue? = null
+
     private val logChannel = "logChannel"
+    private lateinit var user: User
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,7 +46,9 @@ class LoginActivity : AppCompatActivity() {
         if (supportActionBar != null) {
             supportActionBar!!.hide()
         }
-        //setText()
+
+        queue= Volley.newRequestQueue(this)
+
         val dontHaveAccount = findViewById<TextView>(R.id.dontHaveAccount)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
 
@@ -46,14 +56,7 @@ class LoginActivity : AppCompatActivity() {
         val editPassword: TextInputEditText = findViewById(R.id.inputPassword)
         val layoutUsername: TextInputLayout = findViewById(R.id.inputLayoutUsername)
         val layoutPassword: TextInputLayout = findViewById(R.id.inputLayoutPassword)
-/*
-        editUsername.addTextChangedListener(object: TextWatcher{
-            override fun onTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                layoutUsername.setError(null)
-            }
-        })
 
- */
         dontHaveAccount.setOnClickListener {
             val moveRegist = Intent(this, RegistActiviy::class.java)
             startActivity(moveRegist)
@@ -72,83 +75,78 @@ class LoginActivity : AppCompatActivity() {
                 layoutPassword.setError("Password must be filled with text")
 
             if(!inputUsername.isEmpty() && !inputPassword.isEmpty()){
-                val user: User = findLoginData(inputUsername)
+                val stringRequest: StringRequest = object : StringRequest(Method.GET, UserApi.GET_ALL_URL,
+                    Response.Listener { response->
+                        val gson = Gson()
+                        val userList: Array<User> = gson.fromJson(response,Array<User>::class.java)
 
-                Log.d("user",user.toString())
+                        if(userList.isEmpty()){
+                            Toast.makeText(this@LoginActivity,"Belum ada data login", Toast.LENGTH_SHORT).show()
+                        }else{
+                            for(user in userList){
+                                if(inputUsername == user.username){
+                                    if(inputPassword == user.password){
+                                        checkLogin = true
+                                    }else{
+                                        Toast.makeText(this@LoginActivity,"Password Salah!", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
 
-                if(user.id != 99){
-                    if(inputPassword == user.password){
-                        checkLogin = true
-                    }else{
-                        layoutPassword.setError("Password Salah!")
+                            if(!checkLogin){
+                                Toast.makeText(this@LoginActivity,"Username tidak ditemukan!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }, Response.ErrorListener { error->
+                        try{
+                            val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+                            val errors = JSONObject(responseBody)
+                            Toast.makeText(
+                                this@LoginActivity,
+                                errors.getString("message"),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }catch (e: Exception){
+                            Log.d("Error Login", e.message.toString())
+                            Toast.makeText(this@LoginActivity,e.message, Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }else{
-                    layoutUsername.setError("Username tidak ditemukan!")
+                ){
+                    @Throws(AuthFailureError::class)
+                    override fun getHeaders(): Map<String, String> {
+                        val headers = HashMap<String,String>()
+                        headers["Accept"] = "application/json"
+                        return headers
+                    }
                 }
+                queue!!.add(stringRequest)
 
-//            if (loginData != null) {
-//                if (
-//                    inputUsername == loginData.getString("username")
-//                    && inputPassword == loginData.getString("password")
-//                ) {
-//                    checkLogin = true
-//                } else if (
-//                    inputUsername != loginData.getString("username")
-//                    && inputPassword == loginData.getString("password")
-//                ) {
-//                    layoutUsername.setError("Username salah!")
-//                } else if (
-//                    inputUsername == loginData.getString("username")
-//                    && inputPassword != loginData.getString("password")
-//                ) {
-//                    layoutPassword.setError("Password salah!")
-//                }
-//            } else if (!inputUsername.isEmpty() && !inputPassword.isEmpty()) {
-//                val moveRegist = Intent(this, RegistActiviy::class.java)
-//                MaterialAlertDialogBuilder(this@LoginActivity)
-//                    .setTitle("Login Gagal")
-//                    .setMessage("Note: Belum ada akun terdaftar")
-//                    .setPositiveButton("Buat Akun", object : DialogInterface.OnClickListener {
-//                        override fun onClick(dialogInterface: DialogInterface, i: Int) {
-//                            startActivity(moveRegist)
-//                        }
-//                    })
-//                    .setNegativeButton("Cancel", null)
-//                    .show()
+                if(!checkLogin){return@OnClickListener}
+
+                Toast.makeText(this@LoginActivity,"Login Berhasil!", Toast.LENGTH_SHORT).show()
+                val moveHome = Intent(this, HomeActivity::class.java)
+                sendNotification()
+                startActivity(moveHome)
+
 //            }
-                if (!checkLogin)
-                    return@OnClickListener
-                else {
-                    val moveHome = Intent(this, HomeActivity::class.java)
-                    startActivity(moveHome)
-                }
-            }
-
-        })
-    }
-
-    fun setText() {
-        val editUsername: TextInputEditText = findViewById(R.id.inputUsername)
-        var user = User(0,"a","a","","","")
-
-        CoroutineScope(Dispatchers.IO).launch {
-            user = db.userDao().getUser(0)[0]}
-
-        editUsername.setText(user.username)
-    }
-
-    private fun findLoginData(data: String): User {
-        var user = User(0, "a", "a", "", "", "")
-
-        CoroutineScope(Dispatchers.IO).launch {
-            var userList: List<User> = db.userDao().getUserByUsername(data)
-
-            if(!userList.isEmpty()){
-                user = userList.get(0)
-            }
         }
-        return user
+    })
+
     }
+
+//    fun setText() {
+//        val editUsername: TextInputEditText = findViewById(R.id.inputUsername)
+//        var user = User(99,"","","","","")
+//
+//        CoroutineScope(Dispatchers.IO).launch {
+//            user = db.userDao().getUser(0)[0]}
+//
+//        editUsername.setText(user.username)
+//    }
+//
+//    private fun findLoginData(data: String): User {
+//        return user
+//    }
 
     private fun createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){

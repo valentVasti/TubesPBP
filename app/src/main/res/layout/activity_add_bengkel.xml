@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/red">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05"
+        app:srcCompat="@drawable/ic_account_circle_24"/>
+
+    <LinearLayout
+        android:id="@+id/layoutdata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/imageView2"
+        tools:layout_editor_absoluteX="16dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            app:errorEnabled="true"
+            android:layout_marginBottom="0dp"
+            app:boxBackgroundColor="@color/red"
+            app:boxStrokeColor="@color/white"
+            app:hintTextColor="@color/white"
+            app:boxStrokeErrorColor="@color/black"
+            app:errorTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputLayoutName2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutAlamat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Alamat"
+            app:errorEnabled="true"
+            android:layout_marginBottom="0dp"
+            app:boxBackgroundColor="@color/red"
+            app:boxStrokeColor="@color/white"
+            app:hintTextColor="@color/white"
+            app:boxStrokeErrorColor="@color/black"
+            app:errorTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputLayoutAlamat2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutJamBuka"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="JamBuka"
+            app:errorEnabled="true"
+            android:layout_marginBottom="0dp"
+            app:boxBackgroundColor="@color/red"
+            app:boxStrokeColor="@color/white"
+            app:hintTextColor="@color/white"
+            app:boxStrokeErrorColor="@color/black"
+            app:errorTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputLayoutJamBuka2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutJenis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Jenis"
+            app:errorEnabled="true"
+            android:layout_marginBottom="0dp"
+            app:boxBackgroundColor="@color/red"
+            app:boxStrokeColor="@color/white"
+            app:hintTextColor="@color/white"
+            app:boxStrokeErrorColor="@color/black"
+            app:errorTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputLayoutJenis2"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        app:layout_constraintEnd_toEndOf="@+id/layoutdata"
+        app:layout_constraintStart_toStartOf="@+id/layoutdata"
+        app:layout_constraintTop_toBottomOf="@+id/layoutdata">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/backBtn"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:text="Back to Login"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddBengkelActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/red"
+            android:layout_weight="1"
+            android:text="AddBengkel"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

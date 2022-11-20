@@ -11,6 +11,23 @@
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/fragment_search.xml" value="0.259375" />
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/queue_rv_item.xml" value="0.259375" />
         <entry key="..\:/AppAndroid/TubesPBP/app/src/main/res/layout/rv_item_bengkel.xml" value="0.259375" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.1075" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/drawable/ic_baseline_delete_forever_24.xml" value="0.1" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/layout/activity_add_bengkel.xml" value="0.25" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/layout/activity_add_edit.xml" value="0.1" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/layout/activity_add_edit_queue.xml" value="0.25" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/layout/activity_regist_activiy.xml" value="0.25" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/layout/fragment_profile.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/layout/fragment_search.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/layout/item_bengkel.xml" value="0.1" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/layout/item_list.xml" value="0.1" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/layout/layout_loading.xml" value="0.1" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/layout/layout_tooltip.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/layout/queue_rv_item.xml" value="0.25" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/layout/rv_item_bengkel.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/menu/bottom_nav.xml" value="0.25" />
+        <entry key="..\:/Users/ASUS/TubesPBP/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1075" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable-v24/ic_baseline_directions_car_24.xml" value="0.1875" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable-v24/ic_baseline_person_24.xml" value="0.1875" />
         <entry key="..\:/backup hardisk old/Atma thingss/Sem 5/PBP/Tubes/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.188" />

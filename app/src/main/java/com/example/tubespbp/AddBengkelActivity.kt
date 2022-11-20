@@ -8,7 +8,7 @@ import com.google.android.gms.common.util.Clock
 
 class AddBengkelActivity : AppCompatActivity() {
 
-    private var clock = Clock.getInstance()
+
     val  db by lazy { UserDB(this) }
     private var noteId: Int = 0
     private val regChannel = "regChannel"

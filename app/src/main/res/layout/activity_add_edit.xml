@@ -126,8 +126,5 @@
             android:layout_weight="1"
             android:text="Simpan" />
     </LinearLayout>
-    <include android:id="@+id/layout_loading"
-        layout="@layout/layout_loading"
-        android:visibility="gone"
-        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

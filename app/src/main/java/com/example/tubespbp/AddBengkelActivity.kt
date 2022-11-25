@@ -8,11 +8,9 @@ import com.google.android.gms.common.util.Clock
 
 class AddBengkelActivity : AppCompatActivity() {
 
-
     val  db by lazy { UserDB(this) }
     private var noteId: Int = 0
     private val regChannel = "regChannel"
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

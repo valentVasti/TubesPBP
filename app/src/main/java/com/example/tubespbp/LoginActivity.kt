@@ -23,10 +23,11 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.tubespbp.room.User
+import server.models.User
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
+import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import server.api.UserApi
@@ -34,9 +35,9 @@ import java.nio.charset.StandardCharsets
 
 class LoginActivity : AppCompatActivity() {
     private var queue: RequestQueue? = null
-
     private val logChannel = "logChannel"
     private lateinit var user: User
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener(View.OnClickListener {
             var checkLogin = false
+            var checkPass = false
 
             val inputUsername = layoutUsername.getEditText()?.getText().toString()
             val inputPassword = layoutPassword.getEditText()?.getText().toString()
@@ -81,20 +83,33 @@ class LoginActivity : AppCompatActivity() {
                         val userList: Array<User> = gson.fromJson(response,Array<User>::class.java)
 
                         if(userList.isEmpty()){
-                            Toast.makeText(this@LoginActivity,"Belum ada data login", Toast.LENGTH_SHORT).show()
+                            FancyToast.makeText(this@LoginActivity, "Belum ada data User", FancyToast.LENGTH_SHORT, FancyToast.INFO, false).show()
                         }else{
                             for(user in userList){
                                 if(inputUsername == user.username){
                                     if(inputPassword == user.password){
                                         checkLogin = true
+                                        checkPass = true
+                                        val bundle = Bundle()
+
+                                        bundle.putString("username", user.username)
+
+                                        FancyToast.makeText(this@LoginActivity, "Login Berhasil", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
+                                        val moveHome = Intent(this, HomeActivity::class.java)
+                                        moveHome.putExtra("userData", bundle)
+                                        sendNotification()
+                                        startActivity(moveHome)
+                                        break
                                     }else{
-                                        Toast.makeText(this@LoginActivity,"Password Salah!", Toast.LENGTH_SHORT).show()
+                                        FancyToast.makeText(this@LoginActivity, "Password Salah!", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
+                                        break
                                     }
                                 }
                             }
 
                             if(!checkLogin){
-                                Toast.makeText(this@LoginActivity,"Username tidak ditemukan!", Toast.LENGTH_SHORT).show()
+                                FancyToast.makeText(this@LoginActivity, "Username tidak ditemukan!", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
+                                return@Listener
                             }
                         }
                     }, Response.ErrorListener { error->
@@ -120,15 +135,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
                 queue!!.add(stringRequest)
-
-                if(!checkLogin){return@OnClickListener}
-
-                Toast.makeText(this@LoginActivity,"Login Berhasil!", Toast.LENGTH_SHORT).show()
-                val moveHome = Intent(this, HomeActivity::class.java)
-                sendNotification()
-                startActivity(moveHome)
-
-//            }
         }
     })
 

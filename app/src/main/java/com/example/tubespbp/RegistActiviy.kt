@@ -16,7 +16,7 @@ import android.view.View
 import android.widget.DatePicker
 import android.widget.Toast
 import com.example.tubespbp.databinding.ActivityRegistActiviyBinding
-//import com.example.tubespbp.room.User
+import com.example.tubespbp.room.User
 import com.example.tubespbp.room.UserDB
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -33,10 +33,11 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import com.shashank.sony.fancytoastlib.FancyToast
 import org.json.JSONObject
 import server.api.UserApi
 import java.util.*
-import server.models.User
+//import server.models.User
 import java.nio.charset.StandardCharsets
 
 class RegistActiviy : AppCompatActivity() {
@@ -136,7 +137,7 @@ class RegistActiviy : AppCompatActivity() {
 
             if (!checkRegist){return@OnClickListener}
 
-            val user = User(username, password, email, birthDate, phone)
+            val user = User(0, username, password, email, birthDate, phone)
 
             val stringRequest: StringRequest = object : StringRequest(Method.POST,UserApi.ADD_URL,
                 Response.Listener { response ->
@@ -144,7 +145,7 @@ class RegistActiviy : AppCompatActivity() {
                     val user = gson.fromJson(response, User::class.java)
 
                     if(user != null){
-                        Toast.makeText(this@RegistActiviy,"Data Berhasil Ditambahkan", Toast.LENGTH_LONG).show()
+                        FancyToast.makeText(this@RegistActiviy, "Register Berhasil", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
                         sendNotification()
                     }
 
@@ -202,8 +203,9 @@ class RegistActiviy : AppCompatActivity() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             val name = "Notification Title"
             val descriptionText = "Notification Description"
+            val importance = NotificationManager.IMPORTANCE_HIGH
 
-            val registChannel = NotificationChannel(regChannel, name, NotificationManager.IMPORTANCE_DEFAULT).apply{
+            val registChannel = NotificationChannel(regChannel, name, importance).apply{
                 description = descriptionText
             }
 
@@ -230,7 +232,7 @@ class RegistActiviy : AppCompatActivity() {
             .setStyle(bigPictureStyle)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setContentIntent(pendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
 
         with(NotificationManagerCompat.from(this)){
             notify(101, builder.build())

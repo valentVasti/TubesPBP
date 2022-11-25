@@ -25,7 +25,6 @@ class FragmentBengkel : Fragment() {
             val intent= Intent(activity, MapActivity::class.java)
             startActivity(intent)
         }
-
         // Return the fragment view/layout
         return view
     }
@@ -42,6 +41,5 @@ class FragmentBengkel : Fragment() {
         rvBengkel.setHasFixedSize(true)
 
         rvBengkel.adapter = adapter
-
     }
 }

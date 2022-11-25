@@ -11,13 +11,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
     lateinit var botNav : BottomNavigationView
+    lateinit var bundle : Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        val usernameLogin = getBundle()
         val firstFragment=FragmentBengkel()
         val secondFragment=FragmentSearch()
-        val thirdFragment=FragmentProfile()
+        val thirdFragment=FragmentProfile(usernameLogin)
 
         setCurrentFragment(firstFragment)
         botNav = findViewById(R.id.bottom_navigation_view) as BottomNavigationView
@@ -50,4 +52,12 @@ class HomeActivity : AppCompatActivity() {
             replace(R.id.navFragment,fragment)
             commit()
         }
+
+    fun getBundle():String{
+        bundle = intent.getBundleExtra("userData")!!
+
+        var usernameLogin : String = bundle.getString("username")!!
+
+        return usernameLogin
+    }
 }

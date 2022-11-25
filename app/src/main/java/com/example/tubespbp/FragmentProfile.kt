@@ -20,6 +20,7 @@ import com.example.tubespbp.room.User
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.fragment_profile.view.*
 import org.json.JSONObject
 import server.api.UserApi
 import java.nio.charset.StandardCharsets
@@ -35,7 +36,12 @@ class FragmentProfile(var usernameLogin: String) : Fragment () {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        view.makePdfBtn.setOnClickListener(){
+            createPdf(usernameLogin)
+        }
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

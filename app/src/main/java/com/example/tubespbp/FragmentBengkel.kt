@@ -1,5 +1,6 @@
 package com.example.tubespbp
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tubespbp.entity.Bengkel
+import com.master.permissionhelper.PermissionHelper
 import kotlinx.android.synthetic.main.fragment_bengkel.*
 import kotlinx.android.synthetic.main.fragment_bengkel.view.*
 
@@ -25,7 +27,7 @@ class FragmentBengkel : Fragment() {
             val intent= Intent(activity, MapActivity::class.java)
             startActivity(intent)
         }
-        // Return the fragment view/layout
+
         return view
     }
 

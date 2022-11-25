@@ -8,6 +8,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdk 32
+    buildToolsVersion = "30.0.3"
 
     defaultConfig {
         applicationId "com.example.tubespbp"
@@ -80,4 +81,15 @@ dependencies {
 
     //implementasi PDF Library OpenPDF
     implementation 'com.github.librepdf:openpdf:1.3.29'
+
+    //barcode
+    implementation 'com.google.android.gms:play-services-vision:20.1.3'
+
+    implementation 'com.pspdfkit:pspdfkit:8.4.1'
+
+//    //rate bottom sheet
+//    implementation 'com.mikhaellopez:ratebottomsheet:1.1.0'
+
+    //permission helper
+    implementation 'com.github.pankaj89:PermissionHelper:2.3'
 }

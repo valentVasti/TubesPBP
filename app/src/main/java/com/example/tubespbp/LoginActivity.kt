@@ -140,6 +140,10 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    private fun showBottomDialog() {
+
+    }
+
 //    fun setText() {
 //        val editUsername: TextInputEditText = findViewById(R.id.inputUsername)
 //        var user = User(99,"","","","","")
@@ -164,7 +168,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(registChannel)
         }
     }

@@ -30,8 +30,6 @@ class AddEditQueueActivity : AppCompatActivity() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         ).get(QueueViewModel::class.java)
 
-
-
         queueNamaEdt = findViewById(R.id.editNama)
         queueJenisEdt = findViewById(R.id.editJenis)
         saveBtn = findViewById(R.id.idBtn)

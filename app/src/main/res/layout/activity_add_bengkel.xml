@@ -31,7 +31,7 @@
         tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutName"
+            android:id="@+id/inputLayoutNama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
@@ -44,7 +44,7 @@
             app:errorTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputLayoutName2"
+                android:id="@+id/inputNama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -65,7 +65,7 @@
             app:errorTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputLayoutAlamat2"
+                android:id="@+id/inputAlamat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -73,10 +73,10 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutJamBuka"
+            android:id="@+id/inputLayoutJamOperasional"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="JamBuka"
+            android:hint="Jam Operasional"
             app:errorEnabled="true"
             android:layout_marginBottom="0dp"
             app:boxBackgroundColor="@color/red"
@@ -86,7 +86,7 @@
             app:errorTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputLayoutJamBuka2"
+                android:id="@+id/inputJamOperasional"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -107,7 +107,7 @@
             app:errorTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputLayoutJenis2"
+                android:id="@+id/inputJenis"
                 android:clickable="false"
                 android:cursorVisible="false"
                 android:focusable="false"
@@ -132,21 +132,21 @@
         app:layout_constraintTop_toBottomOf="@+id/layoutdata">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/backBtn"
+            android:id="@+id/cancelBtn"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_weight="1"
-            android:text="Back to Login"/>
+            android:text="CANCEL"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAddBengkelActivity"
+            android:id="@+id/addBengkelBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
             android:textColor="@color/red"
             android:layout_weight="1"
-            android:text="AddBengkel"/>
+            android:text="Add Bengkel"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

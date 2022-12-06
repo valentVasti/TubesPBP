@@ -146,7 +146,7 @@ class RegistActiviy : AppCompatActivity() {
 
                     if(user != null){
                         FancyToast.makeText(this@RegistActiviy, "Register Berhasil", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
-                        sendNotification()
+//                        sendNotification()
                     }
 
                     val returnIntent = Intent()
@@ -188,13 +188,13 @@ class RegistActiviy : AppCompatActivity() {
             queue!!.add(stringRequest)
 
             val moveLogin = Intent(this, LoginActivity::class.java)
-            sendNotification()
+//            sendNotification()
             startActivity(moveLogin)
         })
     }
 
     private fun updateDateInView(editDate: TextInputEditText) {
-        val myFormat = "MM/dd/yyyy" // mention the format you need
+        val myFormat = "yyyy-MM-dd" // mention the format you need
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         editDate.setText(sdf.format(cal.getTime()).toString())
     }
@@ -221,8 +221,8 @@ class RegistActiviy : AppCompatActivity() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
-        val bigPictureBitmap = ContextCompat.getDrawable(this, R.drawable.big_picture)?.toBitmap()
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this@RegistActiviy, 0, intent, 0)
+        val bigPictureBitmap = ContextCompat.getDrawable(this@RegistActiviy, R.drawable.big_picture)?.toBitmap()
         val bigPictureStyle = NotificationCompat.BigPictureStyle().bigPicture(bigPictureBitmap)
 
         val builder = NotificationCompat.Builder(this, regChannel)

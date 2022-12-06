@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tubespbp.entity.Bengkel
+//import com.example.tubespbp.entity.Bengkel
+import server.models.Bengkel
 
 class RVBengkelAdapter(private val data: Array<Bengkel>) : RecyclerView.Adapter<RVBengkelAdapter.viewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
@@ -16,10 +17,10 @@ class RVBengkelAdapter(private val data: Array<Bengkel>) : RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         val currentItem = data[position]
-        holder.ivBengkel.setImageResource(currentItem.image)
-        holder.tvNama.text = currentItem.name
+        holder.ivBengkel.setImageResource(R.drawable.honda)
+        holder.tvNama.text = currentItem.nama
         holder.tvDetails.text = currentItem.alamat
-        holder.tvdetail.text = "${currentItem.jenis}||${currentItem.jamBuka}"
+        holder.tvdetail.text = "${currentItem.jenis}||${currentItem.jamOperasional}"
     }
 
     override fun getItemCount(): Int {

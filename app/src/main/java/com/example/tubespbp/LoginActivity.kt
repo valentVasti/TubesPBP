@@ -53,8 +53,6 @@ class LoginActivity : AppCompatActivity() {
         val dontHaveAccount = findViewById<TextView>(R.id.dontHaveAccount)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
 
-        val editUsername: TextInputEditText = findViewById(R.id.inputUsername)
-        val editPassword: TextInputEditText = findViewById(R.id.inputPassword)
         val layoutUsername: TextInputLayout = findViewById(R.id.inputLayoutUsername)
         val layoutPassword: TextInputLayout = findViewById(R.id.inputLayoutPassword)
 
@@ -65,7 +63,6 @@ class LoginActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener(View.OnClickListener {
             var checkLogin = false
-            var checkPass = false
 
             val inputUsername = layoutUsername.getEditText()?.getText().toString()
             val inputPassword = layoutPassword.getEditText()?.getText().toString()
@@ -89,7 +86,6 @@ class LoginActivity : AppCompatActivity() {
                                 if(inputUsername == user.username){
                                     if(inputPassword == user.password){
                                         checkLogin = true
-                                        checkPass = true
                                         val bundle = Bundle()
 
                                         bundle.putString("username", user.username)
@@ -97,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
                                         FancyToast.makeText(this@LoginActivity, "Login Berhasil", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
                                         val moveHome = Intent(this, HomeActivity::class.java)
                                         moveHome.putExtra("userData", bundle)
-                                        sendNotification()
+//                                        sendNotification()
                                         startActivity(moveHome)
                                         break
                                     }else{
@@ -137,10 +133,6 @@ class LoginActivity : AppCompatActivity() {
                 queue!!.add(stringRequest)
         }
     })
-
-    }
-
-    private fun showBottomDialog() {
 
     }
 

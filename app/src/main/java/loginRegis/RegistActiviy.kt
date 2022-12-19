@@ -1,4 +1,4 @@
-package com.example.tubespbp
+package loginRegis
 
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -17,13 +17,8 @@ import android.widget.DatePicker
 import android.widget.Toast
 import com.example.tubespbp.databinding.ActivityRegistActiviyBinding
 import com.example.tubespbp.room.User
-import com.example.tubespbp.room.UserDB
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_regist_activiy.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -32,6 +27,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.tubespbp.R
 import com.google.gson.Gson
 import com.shashank.sony.fancytoastlib.FancyToast
 import org.json.JSONObject

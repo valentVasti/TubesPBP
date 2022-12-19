@@ -5,7 +5,7 @@
         android:id="@+id/bengkelFragment"
         />
     <item android:title="Queue"
-        android:icon="@drawable/ic_baseline_search_24"
+        android:icon="@drawable/ic_baseline_check_circle_24"
         android:id="@+id/searchFragment"/>
     <item android:title="Profile"
         android:icon="@drawable/ic_baseline_person_24"

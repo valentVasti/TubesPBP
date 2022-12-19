@@ -14,44 +14,62 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp">
 
-
         <TextView
-            android:id="@+id/tvId"
+            android:id="@+id/tvNoAntrian"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:layout_toLeftOf="@id/idIVDelete"
+            android:layout_toLeftOf="@id/btn_delete"
             android:padding="4dp"
             android:text="Antrian"
             android:textColor="@color/white"
             android:textSize="18sp" />
+
         <TextView
-            android:id="@+id/tvJenis"
+            android:id="@+id/tvNamaBengkel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvNama"
-            android:layout_margin="3dp"
-            android:layout_toLeftOf="@id/idIVDelete"
+            android:layout_below="@id/tvNoAntrian"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_toLeftOf="@id/btn_delete"
             android:padding="4dp"
-            android:text="Jenis Kendaraan"
+            android:text="Nama Bengkel"
             android:textColor="@color/white"
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/tvNama"
+            android:id="@+id/tvTanggal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvId"
+            android:layout_below="@id/tvKerusakan"
             android:layout_margin="3dp"
-            android:layout_toLeftOf="@id/idIVDelete"
+            android:layout_toLeftOf="@id/btn_delete"
             android:padding="4dp"
-            android:text="Nama"
+            android:text="Tanggal"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvKerusakan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNamaBengkel"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_toLeftOf="@id/btn_delete"
+            android:padding="4dp"
+            android:text="Kerusakan"
             android:textColor="@color/white"
             android:textSize="13sp" />
 
 
-        <ImageView
-            android:id="@+id/idIVDelete"
+        <ImageButton
+            android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -59,8 +77,8 @@
             android:layout_centerVertical="true"
             android:layout_margin="3dp"
             android:padding="3dp"
-            android:src="@drawable/ic_delete"
-            app:tint="@color/white" />
+            android:src="@drawable/ic_baseline_delete_forever_24"
+            app:tint="@color/red" />
 
     </RelativeLayout>
 

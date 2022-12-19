@@ -21,6 +21,7 @@ import com.google.gson.Gson
 import com.lowagie.text.pdf.PdfWriter
 import com.pspdfkit.annotations.FreeTextAnnotation
 import com.pspdfkit.document.PdfDocument
+import kotlinx.android.synthetic.main.activity_edit_profile.view.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_bengkel.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -29,7 +30,7 @@ import org.json.JSONObject
 import server.api.UserApi
 import java.nio.charset.StandardCharsets
 
-class FragmentProfile(var usernameLogin: String) : Fragment () {
+class FragmentProfile(var idLogin: Int) : Fragment () {
 
     private var queue : RequestQueue? = null
     lateinit var bundle: Bundle
@@ -41,8 +42,10 @@ class FragmentProfile(var usernameLogin: String) : Fragment () {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        view.makePdfBtn.setOnClickListener(){
-
+        view.editBtn.setOnClickListener(){
+            val intent= Intent(activity, EditProfileActivity::class.java)
+            intent.putExtra("id", idLogin)
+            startActivity(intent)
         }
 
         return view
@@ -115,7 +118,7 @@ class FragmentProfile(var usernameLogin: String) : Fragment () {
                 val userList: Array<User> = gson.fromJson(response,Array<User>::class.java)
 
                 for(user in userList){
-                    if(user.username == usernameLogin){
+                    if(user.id == idLogin){
                         tvUsername.setText(user.username)
                         tvEmail.setText(user.email)
                         tvPhone.setText(user.phone)

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/red"
-    tools:context=".AddBengkelActivity">
+    tools:context=".AddQueueActivity">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05"
-        app:srcCompat="@drawable/ic_baseline_store_24"/>
+        app:srcCompat="@drawable/ic_baseline_note_add_24"/>
 
     <LinearLayout
         android:id="@+id/layoutdata"
@@ -32,10 +32,10 @@
         tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutNama"
+            android:id="@+id/inputLayoutNoAntrian"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
+            android:hint="No Antrian"
             app:errorEnabled="true"
             android:layout_marginBottom="0dp"
             app:boxBackgroundColor="@color/red"
@@ -45,7 +45,7 @@
             app:errorTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputNama"
+                android:id="@+id/inputNoAntrian"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -53,10 +53,38 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutAlamat"
+            android:id="@+id/inputLayoutBengkel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Alamat"
+            android:hint="Pilih Bengkel"
+            app:errorEnabled="true"
+            android:layout_marginBottom="0dp"
+            app:boxBackgroundColor="@color/red"
+            app:boxStrokeColor="@color/white"
+            app:hintTextColor="@color/white"
+            app:boxStrokeErrorColor="@color/black"
+            app:errorTextColor="@color/black">
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">-->
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputBengkel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/dropDownBengkel"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:inputType="none"/>-->
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutKerusakan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Kerusakan"
             app:errorEnabled="true"
             android:layout_marginBottom="0dp"
             app:boxBackgroundColor="@color/red"
@@ -66,7 +94,7 @@
             app:errorTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputAlamat"
+                android:id="@+id/inputKerusakan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -74,10 +102,10 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutJamOperasional"
+            android:id="@+id/inputLayoutTanggal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Jam Operasional"
+            android:hint="Tanggal"
             app:errorEnabled="true"
             android:layout_marginBottom="0dp"
             app:boxBackgroundColor="@color/red"
@@ -87,28 +115,7 @@
             app:errorTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputJamOperasional"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutJenis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Jenis"
-            app:errorEnabled="true"
-            android:layout_marginBottom="0dp"
-            app:boxBackgroundColor="@color/red"
-            app:boxStrokeColor="@color/white"
-            app:hintTextColor="@color/white"
-            app:boxStrokeErrorColor="@color/black"
-            app:errorTextColor="@color/black">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputJenis"
+                android:id="@+id/inputTanggal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -138,12 +145,13 @@
             android:text="CANCEL"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/addBengkelBtn"
+            android:id="@+id/addQueueBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
             android:textColor="@color/red"
             android:layout_weight="1"
-            android:text="Add Bengkel"/>
+            android:text="Add Queue"/>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

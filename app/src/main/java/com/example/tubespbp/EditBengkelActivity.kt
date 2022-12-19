@@ -1,44 +1,37 @@
 package com.example.tubespbp
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.tubespbp.databinding.ActivityAddBengkelBinding
+import com.example.tubespbp.databinding.ActivityEditBengkelBinding
+import com.example.tubespbp.databinding.ActivityEditProfileBinding
 import com.google.gson.Gson
 import com.shashank.sony.fancytoastlib.FancyToast
-import loginRegis.LoginActivity
 import org.json.JSONObject
 import server.api.BengkelApi
 import server.models.Bengkel
 import java.nio.charset.StandardCharsets
-import java.util.*
+import java.util.HashMap
 
-class AddBengkelActivity : AppCompatActivity() {
+class EditBengkelActivity : AppCompatActivity() {
 
     private var queue: RequestQueue? = null
-    private val notifChannel = "addBengkelChannel"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityAddBengkelBinding = ActivityAddBengkelBinding.inflate(layoutInflater)
+        val binding: ActivityEditBengkelBinding = ActivityEditBengkelBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        createNotificationChannel()
+        var id = intent.getIntExtra("idBengkel", -1) // ambil id bengkel
 
         val inputNama = binding.inputLayoutNama
         val inputAlamat = binding.inputLayoutAlamat
@@ -46,7 +39,7 @@ class AddBengkelActivity : AppCompatActivity() {
         val inputJenis = binding.inputLayoutJenis
 
         val btnCancel = binding.cancelBtn
-        val btnAdd = binding.addBengkelBtn
+        val btnEdit = binding.editBengkelBtn
 
         btnCancel.setOnClickListener {
             val bundle = Bundle()
@@ -56,8 +49,8 @@ class AddBengkelActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btnAdd.setOnClickListener(View.OnClickListener {
-            var checkAdd = false
+        btnEdit.setOnClickListener(View.OnClickListener {
+            var checkEdit = false
 
             queue = Volley.newRequestQueue(this)
 
@@ -88,21 +81,20 @@ class AddBengkelActivity : AppCompatActivity() {
                 !jam.isEmpty() &&
                 !jenis.isEmpty()
             ) {
-                checkAdd = true
+                checkEdit = true
             }
 
-            if (!checkAdd){return@OnClickListener}
+            if (!checkEdit){return@OnClickListener}
 
-            val bengkel = Bengkel(0, nama, alamat, jam, jenis)
+            val bengkel = Bengkel(id, nama, alamat, jam, jenis)
 
-            val stringRequest: StringRequest = object : StringRequest(Method.POST, BengkelApi.ADD_URL,
+            val stringRequest: StringRequest = object : StringRequest(Method.PUT, BengkelApi.UPDATE_URL + id,
                 Response.Listener { response ->
                     val gson = Gson()
                     val bengkel = gson.fromJson(response, Bengkel::class.java)
 
                     if(bengkel != null){
-                        FancyToast.makeText(this@AddBengkelActivity, "Berhasil tambah bengkel", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
-                        sendNotification()
+                        FancyToast.makeText(this@EditBengkelActivity, "Berhasil edit bengkel", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
 
                         val bundle = Bundle()
                         bundle.putInt("id", intent.getIntExtra("id", -1))
@@ -119,13 +111,13 @@ class AddBengkelActivity : AppCompatActivity() {
                         val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                         val errors = JSONObject(responseBody)
                         Toast.makeText(
-                            this@AddBengkelActivity,
+                            this@EditBengkelActivity,
                             errors.getString("Error: message"),
                             Toast.LENGTH_SHORT
                         ).show()
                     }catch (e: Exception){
                         Log.d("Error Regist", e.message.toString())
-                        Toast.makeText(this@AddBengkelActivity,e.message, Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@EditBengkelActivity,e.message, Toast.LENGTH_LONG).show()
                     }
                 }
             ){
@@ -135,11 +127,15 @@ class AddBengkelActivity : AppCompatActivity() {
                     headers["Accept"] = "application/json"
                     return headers
                 }
-                @Throws(AuthFailureError::class)
-                override fun getBody(): ByteArray {
-                    val gson = Gson()
-                    val requestBody = gson.toJson(bengkel)
-                    return requestBody.toByteArray(StandardCharsets.UTF_8)
+
+                override fun getParams(): MutableMap<String, String>? {
+                    val params = HashMap<String, String>()
+                    //params["jumlahTiket"] = inputField?.text.toString()
+                    params["nama"] = nama
+                    params["alamat"] = alamat
+                    params["jamOperasional"] = jam
+                    params["jenis"] = jenis
+                    return params
                 }
 
                 override fun getBodyContentType(): String {
@@ -149,41 +145,5 @@ class AddBengkelActivity : AppCompatActivity() {
 
             queue!!.add(stringRequest)
         })
-    }
-
-    private fun createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            val name = "Notification Title"
-            val descriptionText = "Notification Description"
-            val importance = NotificationManager.IMPORTANCE_HIGH
-
-            val addChannel = NotificationChannel(notifChannel, name, importance).apply{
-                description = descriptionText
-            }
-
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(addChannel)
-        }
-    }
-
-    private fun sendNotification(){
-
-        val intent: Intent = Intent(this, LoginActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
-
-        val builder = NotificationCompat.Builder(this, notifChannel)
-            .setSmallIcon(R.drawable.ic_baseline_check_circle_24)
-            .setContentTitle("Berhasil menambah 1 Bengkel!")
-            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-            .setContentIntent(pendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-
-        with(NotificationManagerCompat.from(this)){
-            notify(101, builder.build())
-        }
     }
 }

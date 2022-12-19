@@ -1,11 +1,10 @@
-package com.example.tubespbp
+package loginRegis
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,8 +22,10 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import server.models.User
-import com.google.android.material.textfield.TextInputEditText
+import com.example.tubespbp.HomeActivity
+import com.example.tubespbp.R
+//import server.models.User
+import com.example.tubespbp.room.User
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import com.shashank.sony.fancytoastlib.FancyToast
@@ -37,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
     private var queue: RequestQueue? = null
     private val logChannel = "logChannel"
     private lateinit var user: User
+    var sharedPreferences: SharedPreferences? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +90,10 @@ class LoginActivity : AppCompatActivity() {
                                         checkLogin = true
                                         val bundle = Bundle()
 
-                                        bundle.putString("username", user.username)
+//                                        sharedPreferences = getSharedPreferences("loginData", Context.MODE_PRIVATE)
+//                                        sharedPreferences!!.edit().putString("username",user.username)
+
+                                        bundle.putInt("id", user.id)
 
                                         FancyToast.makeText(this@LoginActivity, "Login Berhasil", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
                                         val moveHome = Intent(this, HomeActivity::class.java)
@@ -155,7 +160,7 @@ class LoginActivity : AppCompatActivity() {
             val name = "Notification Title"
             val descriptionText = "Notification Description"
 
-            val registChannel = NotificationChannel(logChannel, name, NotificationManager.IMPORTANCE_DEFAULT).apply{
+            val registChannel = NotificationChannel(logChannel, name, NotificationManager.IMPORTANCE_HIGH).apply{
                 description = descriptionText
             }
 

@@ -100,4 +100,7 @@ dependencies {
 
     //Optional -- UI testing with UI Automator
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+
+    //ticket view
+    implementation 'com.vipulasri:ticketview:1.1.2'
 }

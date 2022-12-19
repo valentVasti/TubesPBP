@@ -4,11 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class Bengkel (
+class Queue (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    var nama: String,
-    var alamat: String,
-    var jamOperasional: String,
-    var jenis: String
+    var no_antrian: Int,
+    var id_bengkel: Int,
+    var id_user: Int,
+    var kerusakan: String,
+    var tanggal: String
     )

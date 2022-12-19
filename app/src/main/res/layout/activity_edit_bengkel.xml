@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/red"
-    tools:context=".AddBengkelActivity">
+    tools:context=".EditBengkelActivity">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -138,12 +138,12 @@
             android:text="CANCEL"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/addBengkelBtn"
+            android:id="@+id/editBengkelBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
             android:textColor="@color/red"
             android:layout_weight="1"
-            android:text="Add Bengkel"/>
+            android:text="Edit Bengkel"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

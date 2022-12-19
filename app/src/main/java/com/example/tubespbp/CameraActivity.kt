@@ -1,6 +1,7 @@
 package com.example.tubespbp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.hardware.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -30,7 +31,15 @@ class CameraActivity : AppCompatActivity() {
 
         @SuppressLint("MissingInflatedId", "LocalSuppress")
         val imageClose = findViewById<View>(R.id.imgClose) as ImageButton
-        imageClose.setOnClickListener { view: View? -> System.exit(0) }
+
+        imageClose.setOnClickListener {
+//            System.exit(0)
+            val bundle = Bundle()
+            bundle.putInt("id", intent.getIntExtra("id", -1))
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.putExtra("userData", bundle)
+            startActivity(intent)
+        }
 
     }
 }
